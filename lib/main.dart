@@ -1,7 +1,8 @@
+import 'package:candy_store/navigation2_main.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const CandyShopApp());
 }
 
 class MyApp extends StatelessWidget {

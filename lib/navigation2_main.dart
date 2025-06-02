@@ -1,4 +1,6 @@
 import 'package:candy_store/dessert.dart';
+import 'package:candy_store/dessert_detail_screen.dart';
+import 'package:candy_store/dessert_list_screen.dart';
 import 'package:flutter/material.dart';
 
 class CandyShopApp extends StatefulWidget {
@@ -14,20 +16,23 @@ class _CandyShopAppState extends State<CandyShopApp> {
     Dessert(
       name: 'Chocolate Cake',
       description: 'A rich chocolate cake with creamy frosting.',
-      imageUrl: 'https://example.com/chocolate_cake.jpg',
+      imageUrl:
+          'https://images.immediate.co.uk/production/volatile/sites/30/2022/05/Chocolate-sandwich-cupcakes-4b30ada.jpg?quality=90&resize=556,505',
     ),
     Dessert(
       name: 'Strawberry Cheesecake',
       description: 'A smooth cheesecake topped with fresh strawberries.',
-      imageUrl: 'https://example.com/strawberry_cheesecake.jpg',
+      imageUrl:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTjX70ZjPUAt_m3_vyAiFIriIgB9YkEdQVRA&s',
     ),
     Dessert(
       name: 'Lemon Tart',
       description: 'A tangy lemon tart with a buttery crust.',
-      imageUrl: 'https://example.com/lemon_tart.jpg',
+      imageUrl:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHwbHey4EhZyNflg6Y4zuhJW0eCpEzKaxy8w&s',
     ),
   ];
-  void _selectDessert(Dessert dessert) {
+  void _handleDessertTap(Dessert dessert) {
     setState(() {
       _selectedDessert = dessert;
     });
@@ -42,11 +47,16 @@ class _CandyShopAppState extends State<CandyShopApp> {
         pages: [
           MaterialPage(
             key: ValueKey("DessertPage"),
-            child: Scaffold(
-              appBar: AppBar(title: const Text('Candy Shop')),
-              body: Center(child: const Text('Welcome to the Candy Shop!')),
+            child: DessertListScreen(
+              dessert: _desserts,
+              onTapped: _handleDessertTap,
             ),
           ),
+          if (_selectedDessert != null)
+            MaterialPage(
+              key: ValueKey("DessertDetailPage"),
+              child: DessertDetailScreen(dessert: _selectedDessert!),
+            ),
         ],
         onDidRemovePage: (page) => print('Removed page: ${page.key}'),
       ),
